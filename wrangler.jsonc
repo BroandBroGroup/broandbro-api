@@ -1,0 +1,16 @@
+{
+	"compatibility_date": "2025-10-08",
+	"main": "src/index.ts",
+	"name": "broandbro-api",
+	"upload_source_maps": true,
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "broandbro-db",
+			"database_id": "9cc6db2b-88cf-47c3-84ea-c01eb31f9cc0"
+		}
+	]
+}
