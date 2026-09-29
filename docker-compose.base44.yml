@@ -1,0 +1,18 @@
+services:
+  api:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX:-}
+    command: ["sh", "-ec", "[ -d node_modules ] || npm install && npx wrangler d1 migrations apply DB --local && exec npx wrangler dev --port 3000 --ip 0.0.0.0"]
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
